@@ -12,7 +12,7 @@ struct Note: Identifiable {
     let title: String
     let text: String
     let date: Date
-    let temperature: Double
+    let temperature: Int
     let weatherDescription: String
     let icon: String
 }
