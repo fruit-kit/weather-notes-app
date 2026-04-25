@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     
     @StateObject private var viewModel = NotesViewModel()
+    @State private var showAddNoteView = false
     
     var body: some View {
         NavigationStack {
@@ -37,6 +38,16 @@ struct ContentView: View {
                 }
             }
             .navigationTitle("Weather Notes")
+            .toolbar {
+                Button {
+                    showAddNoteView = true
+                } label: {
+                    Image(systemName: "plus")
+                }
+            }
+            .sheet(isPresented: $showAddNoteView) {
+                AddNoteView()
+            }
         }
     }
 }
