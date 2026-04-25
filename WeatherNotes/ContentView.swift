@@ -14,23 +14,27 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             List(viewModel.notes) { note in
-                VStack(alignment: .leading) {
-                    Text(note.title)
-                        .font(.headline)
-                    
-                    HStack {
-                        Text(note.text)
-                            .font(.subheadline)
-                        Spacer()
-                        Text("\(note.temperature)°C")
-                        Image(systemName: note.icon)
+                NavigationLink {
+                    NoteDetailView(note: note)
+                } label: {
+                    VStack(alignment: .leading) {
+                        Text(note.title)
+                            .font(.headline)
+                        
+                        HStack {
+                            Text(note.text)
+                                .font(.subheadline)
+                            Spacer()
+                            Text("\(note.temperature)°C")
+                            Image(systemName: note.icon)
+                        }
+                        
+                        HStack {
+                            Text(note.date.formatted(date: .abbreviated, time: .shortened))
+                        }
                     }
-                    
-                    HStack {
-                        Text(note.date.formatted(date: .abbreviated, time: .shortened))
-                    }
+                    .padding(10)
                 }
-                .padding(10)
             }
             .navigationTitle("Weather Notes")
         }
