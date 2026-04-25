@@ -11,6 +11,11 @@ import Combine
 final class NotesViewModel: ObservableObject {
     
     @Published var notes: [Note] = []
+    let notesStorageService = NotesStorageService()
+    
+    init() {
+        notes = notesStorageService.fetchNotes()
+    }
     
     func addNote(title: String, text: String) {
         
@@ -19,25 +24,32 @@ final class NotesViewModel: ObservableObject {
                 let service = WeatherService()
                 let weather = try await service.fetchWeather()
 
-                let note = Note(title: title,
+                let note = Note(id: UUID(),
+                                title: title,
                                 text: text,
                                 date: Date(),
                                 temperature: Int(weather.temperature),
                                 weatherDescription: weather.description,
                                 icon: mapWeatherIcon(weather.icon))
                 
-                self.notes.append(note)
+                notesStorageService.save(note: note)
+                
+                self.notes.insert(note, at: 0)
                 
             } catch {
                 print("Weather error:", error.localizedDescription)
                 
-                let note = Note(title: title,
+                let note = Note(id: UUID(),
+                                title: title,
                                 text: text,
                                 date: Date(),
                                 temperature: 0,
                                 weatherDescription: "No data",
                                 icon: "questionmark.circle")
-                self.notes.append(note)
+                
+                notesStorageService.save(note: note)
+                
+                self.notes.insert(note, at: 0)
             }
         }
     }

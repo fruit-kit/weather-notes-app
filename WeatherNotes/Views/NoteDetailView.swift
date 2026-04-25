@@ -33,7 +33,8 @@ struct NoteDetailView: View {
 
 #Preview {
     NavigationStack {
-        NoteDetailView(note: Note(title: "Title",
+        NoteDetailView(note: Note(id: UUID(),
+                                  title: "Title",
                                   text: "Some text",
                                   date: Date(),
                                   temperature: 18,
