@@ -29,7 +29,15 @@ final class NotesViewModel: ObservableObject {
                 self.notes.append(note)
                 
             } catch {
-                print("Weather error:", error)
+                print("Weather error:", error.localizedDescription)
+                
+                let note = Note(title: title,
+                                text: text,
+                                date: Date(),
+                                temperature: 0,
+                                weatherDescription: "No data",
+                                icon: "questionmark.circle")
+                self.notes.append(note)
             }
         }
     }

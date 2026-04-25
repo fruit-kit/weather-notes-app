@@ -19,8 +19,9 @@ struct WeatherService {
 
         let (data, response) = try await URLSession.shared.data(from: url)
         
-        if let httpsResponce = response as? HTTPURLResponse {
-            print("Status code:", httpsResponce)
+        if let httpsResponce = response as? HTTPURLResponse,
+           httpsResponce.statusCode != 200 {
+            throw URLError(.badServerResponse)
         }
         
         print("Data:", String(data: data, encoding: .utf8) ?? "")
