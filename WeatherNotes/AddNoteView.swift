@@ -8,6 +8,9 @@ import SwiftUI
 
 struct AddNoteView: View {
     
+    let onSave: (String, String) -> Void
+    @Environment(\.dismiss) var dismiss
+    
     @State private var title: String = ""
     @State private var text: String = ""
     
@@ -30,8 +33,8 @@ struct AddNoteView: View {
                 HStack {
                     Spacer()
                     Button("Save") {
-                        print("Title: \(title)")
-                        print("Description: \(text)")
+                        onSave(title, text)
+                        dismiss()
                     }
                     .buttonStyle(.borderedProminent)
                     Spacer()
@@ -45,5 +48,7 @@ struct AddNoteView: View {
 }
 
 #Preview {
-    AddNoteView()
+    AddNoteView { title, text in
+        print(title, text)
+    }
 }

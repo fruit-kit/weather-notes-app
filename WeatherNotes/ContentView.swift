@@ -46,7 +46,10 @@ struct ContentView: View {
                 }
             }
             .sheet(isPresented: $showAddNoteView) {
-                AddNoteView()
+                AddNoteView { title, text in
+                    viewModel.addNote(title: title, text: text)
+                    showAddNoteView = false
+                }
             }
         }
     }
