@@ -10,16 +10,27 @@ import Combine
 
 final class NotesViewModel: ObservableObject {
     
-    @Published var notes = [Note]()
+    @Published var notes: [Note] = []
     
     func addNote(title: String, text: String) {
-        let note: Note = Note(title: title,
-                              text: text,
-                              date: Date(),
-                              temperature: 18,
-                              weatherDescription: "Sunny",
-                              icon: "sun.max.fill")
-        notes.append(note)
+        
+        Task {
+            do {
+                let service = WeatherService()
+                let weather = try await service.fetchWeather()
+
+                let note = Note(title: title,
+                                text: text,
+                                date: Date(),
+                                temperature: Int(weather.temperature),
+                                weatherDescription: weather.description,
+                                icon: "sun.max.fill")
+                
+                self.notes.append(note)
+                
+            } catch {
+                print("Weather error:", error)
+            }
+        }
     }
-    
 }
