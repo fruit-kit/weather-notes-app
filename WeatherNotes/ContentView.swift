@@ -9,30 +9,11 @@ import SwiftUI
 
 struct ContentView: View {
     
-    let notes: [Note] = [
-        Note(title: "Title 1",
-             text: "Some text 1",
-             date: Date(),
-             temperature: 18,
-             weatherDescription: "Sunny",
-             icon: "sun.max.fill"),
-        Note(title: "Title 2",
-             text: "Some text 2",
-             date: Date(),
-             temperature: 18,
-             weatherDescription: "Sunny",
-             icon: "sun.max.fill"),
-        Note(title: "Title 3",
-             text: "Some text 3",
-             date: Date(),
-             temperature: 18,
-             weatherDescription: "Sunny",
-             icon: "sun.max.fill")
-    ]
+    @StateObject private var viewModel = NotesViewModel()
     
     var body: some View {
         NavigationStack {
-            List(notes) { note in
+            List(viewModel.notes) { note in
                 VStack(alignment: .leading) {
                     Text(note.title)
                         .font(.headline)
