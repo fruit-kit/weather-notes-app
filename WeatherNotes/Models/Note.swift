@@ -12,6 +12,7 @@ struct Note: Identifiable {
     let title: String
     let text: String
     let date: Date
+    let city: String
     let temperature: Int
     let weatherDescription: String
     let icon: String

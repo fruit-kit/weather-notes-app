@@ -11,9 +11,16 @@ struct WeatherService {
     
     private let apiKey = "d5f1fc7218c783007518b12043821547"
     
-    func fetchWeather() async throws -> Weather {
+    func fetchWeather(city: String) async throws -> Weather {
         
-        let urlString = "https://api.openweathermap.org/data/2.5/weather?q=Kyiv&appid=\(apiKey)&units=metric"
+        let trimmedCity = city.trimmingCharacters(in: .whitespacesAndNewlines)
+        let cityToUse = trimmedCity.isEmpty ? "Kyiv" : city
+        
+        guard let encodedCity = cityToUse.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+            throw URLError(.badURL)
+        }
+        
+        let urlString = "https://api.openweathermap.org/data/2.5/weather?q=\(encodedCity)&appid=\(apiKey)&units=metric"
         
         let url = URL(string: urlString)!
 

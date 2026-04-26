@@ -18,6 +18,7 @@ final class NotesStorageService {
         entity.title = note.title
         entity.text = note.text
         entity.date = note.date
+        entity.city = note.city
         entity.temperature = Int16(note.temperature)
         entity.weatherDescription = note.weatherDescription
         entity.icon = note.icon
@@ -43,6 +44,7 @@ final class NotesStorageService {
                      title: entity.title ?? "",
                      text: entity.text ?? "",
                      date: entity.date ?? Date(),
+                     city: entity.city ?? "",
                      temperature: Int(entity.temperature),
                      weatherDescription: entity.weatherDescription ?? "",
                      icon: entity.icon ?? "questionmark.circle")

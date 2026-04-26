@@ -8,6 +8,7 @@ The app allows users to create notes and automatically attach current weather da
 ## Features
 - Create notes with title and text
 - Fetch current weather from OpenWeather API
+- Support for custom city input (default: Kyiv)
 - Display weather icon using SF Symbols
 - View note details
 - Persist notes locally using CoreData
@@ -25,6 +26,6 @@ The app allows users to create notes and automatically attach current weather da
 3. Run the project
 
 ## Notes
-- Weather is fetched for Kyiv (as per task requirement)
+- Weather can be fetched for any city (default: Kyiv)
 - Basic error handling is implemented for API requests
 

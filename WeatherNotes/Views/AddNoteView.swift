@@ -8,15 +8,21 @@ import SwiftUI
 
 struct AddNoteView: View {
     
-    let onSave: (String, String) -> Void
+    let onSave: (String, String, String) -> Void
     @Environment(\.dismiss) var dismiss
     
     @State private var title: String = ""
     @State private var text: String = ""
+    @State private var city: String = ""
     
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading) {
+                Text("City")
+                    .font(.headline)
+                TextField("City", text: $city)
+                    .textFieldStyle(.roundedBorder)
+                
                 Text("Title")
                     .font(.headline)
                 TextField("Title", text: $title)
@@ -33,7 +39,7 @@ struct AddNoteView: View {
                 HStack {
                     Spacer()
                     Button("Save") {
-                        onSave(title, text)
+                        onSave(title, text, city)
                         dismiss()
                     }
                     .buttonStyle(.borderedProminent)
@@ -48,7 +54,7 @@ struct AddNoteView: View {
 }
 
 #Preview {
-    AddNoteView { title, text in
+    AddNoteView { title, text, city in
         print(title, text)
     }
 }

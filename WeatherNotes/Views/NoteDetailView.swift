@@ -20,6 +20,7 @@ struct NoteDetailView: View {
             Text(note.text)
             
             HStack {
+                Text("\(note.city),")
                 Text("\(note.weatherDescription),")
                 Text("\(note.temperature)°C")
                 Image(systemName: note.icon)
@@ -37,6 +38,7 @@ struct NoteDetailView: View {
                                   title: "Title",
                                   text: "Some text",
                                   date: Date(),
+                                  city: "Kyiv",
                                   temperature: 18,
                                   weatherDescription: "Sunny",
                                   icon: "sun.max.fill"))

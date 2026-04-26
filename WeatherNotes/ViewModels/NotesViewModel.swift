@@ -17,17 +17,20 @@ final class NotesViewModel: ObservableObject {
         notes = notesStorageService.fetchNotes()
     }
     
-    func addNote(title: String, text: String) {
+    func addNote(title: String, text: String, city: String) {
+        let trimmedCity = city.trimmingCharacters(in: .whitespacesAndNewlines)
+        let cityToUse = trimmedCity.isEmpty ? "Kyiv" : trimmedCity
         
         Task {
             do {
                 let service = WeatherService()
-                let weather = try await service.fetchWeather()
+                let weather = try await service.fetchWeather(city: city)
 
                 let note = Note(id: UUID(),
                                 title: title,
                                 text: text,
                                 date: Date(),
+                                city: cityToUse,
                                 temperature: Int(weather.temperature),
                                 weatherDescription: weather.description,
                                 icon: mapWeatherIcon(weather.icon))
@@ -43,6 +46,7 @@ final class NotesViewModel: ObservableObject {
                                 title: title,
                                 text: text,
                                 date: Date(),
+                                city: cityToUse,
                                 temperature: 0,
                                 weatherDescription: "No data",
                                 icon: "questionmark.circle")
